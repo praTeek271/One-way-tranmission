@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebRTC Text Chat - Receiver</title>
+    <style>
+      /* CSS for the loader and background */
+      #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      #loader img {
+        width: 300px;
+      }
+
+      body {
+        background-color: #000000;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container data-sender">
+      <h1>WebRTC Text Chat - Receiver</h1>
+
+      <!-- <h2>Sender</h2>
+      <textarea id="sender" rows="5" cols="40"></textarea>
+      <button id="sendButton" disabled>Send</button> -->
+
+      <div>
+        <h2>Receiver</h2>
+        <div id="receiver" style="overflow: visible"></div>
+      </div>
+      <img
+        src="8T6865rnc-removebg-preview.png"
+        style="position: relative; display: flex; top: 17rem; left: 55rem"
+      />
+    </div>
+    <!-- Loader HTML (initially hidden) -->
+    <div id="loader" style="display: block">
+      <img src="AR motion design language exploration.gif" alt="Loader" />
+      <!-- Replace 'loader.gif' with your loader image source -->
+    </div>
+
+    <script>
+      const receiverDiv = document.getElementById("receiver");
+      const ws = new WebSocket("ws://localhost:8080");
+
+      ws.addEventListener("open", () => {
+        console.log("WebSocket connection established");
+      });
+
+      ws.addEventListener("message", (event) => {
+        // ...
+      });
+      ws.addEventListener("message", (event) => {
+        if (event.data instanceof Blob) {
+          // Handle Blob data if needed
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const message = e.target.result;
+            receiverDiv.innerHTML += `<p>${message}</p>`;
+          };
+          reader.readAsText(event.data);
+        } else if (typeof event.data === "string") {
+          // Handle text messages
+          const message = event.data;
+          receiverDiv.innerHTML += `<p>${message}</p>`;
+        }
+      });
+    </script>
+
+    <!-- /loader script -->
+    <script>
+      const loader = document.getElementById("loader");
+      const sender = document.querySelector(".data-sender");
+      // Show the loader
+      loader.style.display = "flex";
+      // Hide the sender
+      sender.style.display = "none";
+      // Hide the loader after 5 seconds and change the background to white
+      setTimeout(() => {
+        loader.style.display = "none";
+        document.body.style.backgroundColor = "white";
+        sender.style.display = "block";
+      }, 2000);
+    </script>
+  </body>
+</html>
