@@ -1,6 +1,6 @@
 # One-Way Transmission using WebRTC
 
-![WebRTC Logo](https://webrtc.org/assets/images/webrtc-logo-horiz.svg)
+![WebRTC Logo](https://www.gstatic.com/devrel-devsite/prod/v7101fe1ae309bf6f8b73931812f2304140fb851e33f225a68507501988007b93/webrtc/images/lockup.svg)
 
 This repository provides a simple implementation of one-way data transmission using WebRTC. It allows you to establish a WebRTC data channel for sending text data from one user to another in a real-time and peer-to-peer manner.
 
